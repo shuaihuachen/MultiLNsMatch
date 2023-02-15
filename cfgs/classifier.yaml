@@ -1,0 +1,191 @@
+task: lymph_node_reid_classifier
+
+data:
+  # 1019旧数据
+  # annotation_root: /root/workspace/data/anno_info_1019
+  # processed_data_root: /root/workspace/data/processed_data_1019
+  # 1204新数据
+  annotation_root: /root/workspace/anno_info
+  processed_data_root: /root/workspace/data/processed_data
+  # note: new position embedding method
+  new_processed_label_root: /root/workspace/data/position_embedding_anchor_point/processed_label_npy
+  # patient_case_records_path: /root/workspace/test/0910/patients_all_case.npy
+  # 训练数据列表
+  # 1019旧数据
+  # train_records_path: /root/workspace/data/related_file/patient_train.npy
+  # test_records_path: /root/workspace/data/related_file/patient_eval.npy
+  # inference_records_path: /root/workspace/data/related_file/patient_test.npy
+  # 1204新数据
+  # train_records_path: /root/workspace/data/related_file_1204/patient_train.npy
+  # test_records_path: /root/workspace/data/related_file_1204/patient_eval.npy
+  # inference_records_path: /root/workspace/data/related_file_1204/patient_test.npy
+  # 0122排除不合适层厚数据
+  train_records_path: /root/workspace/data/related_file/patient_train.npy
+  test_records_path: /root/workspace/data/related_file/patient_eval.npy
+  inference_records_path: /root/workspace/data/related_file/patient_test.npy
+  patient_records_path: '/root/workspace/data/related_file/patient_all_case_del_wrong_thickness.npy'
+
+  # 训练集、测试集匹配、不匹配相关文件路径
+  # 1019旧数据
+  # train_t1_has_matcher_record: /root/workspace/data/related_file/train_t1_matcher_label_record.npy
+  # train_t2_has_matcher_record: /root/workspace/data/related_file/train_t2_matcher_label_record.npy
+  # train_t1_no_matcher_record: /root/workspace/data/related_file/train_t1_no_matcher_label_record.npy
+  # train_t1_scaling_change_record: /root/workspace/data/related_file/train_scaling_change_t1_label_record.npy
+  # eval_t1_has_matcher_record: /root/workspace/data/related_file/eval_t1_matcher_label_record.npy
+  # eval_t2_has_matcher_record: /root/workspace/data/related_file/eval_t2_matcher_label_record.npy
+  # eval_t1_no_matcher_record: /root/workspace/data/related_file/eval_t1_no_matcher_label_record.npy
+  # eval_t1_scaling_change_record: /root/workspace/data/related_file/eval_scaling_change_t1_label_record.npy
+  # 1204新数据
+  # train_t1_has_matcher_record: /root/workspace/data/related_file_1204/train_t1_matcher_label_record.npy
+  # train_t2_has_matcher_record: /root/workspace/data/related_file_1204/train_t2_matcher_label_record.npy
+  # train_t1_no_matcher_record: /root/workspace/data/related_file_1204/train_t1_no_matcher_label_record.npy
+  # train_t1_scaling_change_record: /root/workspace/data/related_file_1204/train_scaling_change_t1_label_record.npy
+  # eval_t1_has_matcher_record: /root/workspace/data/related_file_1204/eval_t1_matcher_label_record.npy
+  # eval_t2_has_matcher_record: /root/workspace/data/related_file_1204/eval_t2_matcher_label_record.npy
+  # eval_t1_no_matcher_record: /root/workspace/data/related_file_1204/eval_t1_no_matcher_label_record.npy
+  # eval_t1_scaling_change_record: /root/workspace/data/related_file_1204/eval_scaling_change_t1_label_record.npy
+
+  # ***0122排除不合适层厚数据
+  # train_t1_has_matcher_record: /root/workspace/data/related_file_0122/train_t1_matcher_label_record.npy
+  # train_t2_has_matcher_record: /root/workspace/data/related_file_0122/train_t2_matcher_label_record.npy
+  # train_t1_no_matcher_record: /root/workspace/data/related_file_0122/train_t1_no_matcher_label_record.npy
+  # train_t1_scaling_change_record: /root/workspace/data/related_file_0122/train_scaling_change_t1_label_record.npy
+  # eval_t1_has_matcher_record: /root/workspace/data/related_file_0122/eval_t1_matcher_label_record.npy
+  # eval_t2_has_matcher_record: /root/workspace/data/related_file_0122/eval_t2_matcher_label_record.npy
+  # eval_t1_no_matcher_record: /root/workspace/data/related_file_0122/eval_t1_no_matcher_label_record.npy
+  # eval_t1_scaling_change_record: /root/workspace/data/related_file_0122/eval_scaling_change_t1_label_record.npy
+
+  # 侧方淋巴结 训练集、测试集匹配、不匹配相关文件路径
+  # train_t1_has_matcher_record: /root/workspace/data/related_file/LLN/lln_train_t1_has_matcher_record.npy
+  # train_t2_has_matcher_record: /root/workspace/data/related_file/LLN/lln_train_t2_has_matcher_record.npy
+  # train_t1_no_matcher_record: /root/workspace/data/related_file/LLN/lln_train_t1_no_matcher_record.npy
+  # train_t1_scaling_change_record: /root/workspace/data/related_file/LLN/lln_train_t1_scaling_change_record.npy
+  # eval_t1_has_matcher_record: /root/workspace/data/related_file/LLN/lln_eval_t1_has_matcher_record.npy
+  # eval_t2_has_matcher_record: /root/workspace/data/related_file/LLN/lln_eval_t2_has_matcher_record.npy
+  # eval_t1_no_matcher_record: /root/workspace/data/related_file/LLN/lln_eval_t1_no_matcher_record.npy
+  # eval_t1_scaling_change_record: /root/workspace/data/related_file/LLN/lln_eval_t1_scaling_change_record.npy
+
+  # 0122排除不合适层厚数据 侧方淋巴结 训练集、测试集匹配、不匹配相关文件路径
+  train_t1_has_matcher_record: /root/workspace/data/related_file/LLN/lln_train_t1_has_matcher_record.npy
+  train_t2_has_matcher_record: /root/workspace/data/related_file/LLN/lln_train_t2_has_matcher_record.npy
+  train_t1_no_matcher_record: /root/workspace/data/related_file/LLN/lln_train_t1_no_matcher_record.npy
+  train_t1_scaling_change_record: /root/workspace/data/related_file/LLN/lln_train_t1_scaling_change_record.npy
+  eval_t1_has_matcher_record: /root/workspace/data/related_file/LLN/lln_eval_t1_has_matcher_record.npy
+  eval_t2_has_matcher_record: /root/workspace/data/related_file/LLN/lln_eval_t2_has_matcher_record.npy
+  eval_t1_no_matcher_record: /root/workspace/data/related_file/LLN/lln_eval_t1_no_matcher_record.npy
+  eval_t1_scaling_change_record: /root/workspace/data/related_file/LLN/lln_eval_t1_scaling_change_record.npy
+
+  # 系膜淋巴结 训练集、测试集匹配、不匹配相关文件路径
+  # train_t1_has_matcher_record: /root/workspace/data/related_file/NLLN/nlln_train_t1_has_matcher_record.npy
+  # train_t2_has_matcher_record: /root/workspace/data/related_file/NLLN/nlln_train_t2_has_matcher_record,npy.npy
+  # train_t1_no_matcher_record: /root/workspace/data/related_file/NLLN/nlln_train_t1_no_matcher_record.npy
+  # train_t1_scaling_change_record: /root/workspace/data/related_file/NLLN/nlln_train_t1_scaling_change_record.npy
+  # eval_t1_has_matcher_record: /root/workspace/data/related_file/NLLN/nlln_eval_t1_has_matcher_record.npy
+  # eval_t2_has_matcher_record: /root/workspace/data/related_file/NLLN/nlln_eval_t2_has_matcher_record.npy
+  # eval_t1_no_matcher_record: /root/workspace/data/related_file/NLLN/nlln_eval_t1_no_matcher_record.npy
+  # eval_t1_scaling_change_record: /root/workspace/data/related_file/NLLN/nlln_eval_t1_scaling_change_record.npy
+
+  # 0122排除不合适层厚数据 系膜淋巴结 训练集、测试集匹配、不匹配相关文件路径
+  # train_t1_has_matcher_record: /root/workspace/data/related_file_0122/NLLN/nlln_train_t1_has_matcher_record.npy
+  # train_t2_has_matcher_record: /root/workspace/data/related_file_0122/NLLN/nlln_train_t2_has_matcher_record,npy.npy
+  # train_t1_no_matcher_record: /root/workspace/data/related_file_0122/NLLN/nlln_train_t1_no_matcher_record.npy
+  # train_t1_scaling_change_record: /root/workspace/data/related_file_0122/NLLN/nlln_train_t1_scaling_change_record.npy
+  # eval_t1_has_matcher_record: /root/workspace/data/related_file_0122/NLLN/nlln_eval_t1_has_matcher_record.npy
+  # eval_t2_has_matcher_record: /root/workspace/data/related_file_0122/NLLN/nlln_eval_t2_has_matcher_record.npy
+  # eval_t1_no_matcher_record: /root/workspace/data/related_file_0122/NLLN/nlln_eval_t1_no_matcher_record.npy
+  # eval_t1_scaling_change_record: /root/workspace/data/related_file_0122/NLLN/nlln_eval_t1_scaling_change_record.npy
+
+  # 分类
+  num_classes: 2
+  color_channels: 1
+
+  # 用于随机剪切数据, xy是stride的整数倍
+  crop_size: [ 8, 96, 96 ]
+  scaleLim: [ 0.85, 1.15 ]
+  radiusLim: [ 3, 15 ]
+  jitter_range: 0.15
+  stride: 4
+  filling_value: 170
+  # 增广方法
+  # augtype: {'flip': true, 'swap': false, 'scale': true, 'rotate': true}
+  augtype: { 'flip': false, 'swap': false, 'scale': false, 'rotate': false }
+  # note: 2.5d
+  # augtype: { 'flip': true, 'swap': false, 'scale': true, 'rotate': true }
+  # 黑名单中的数据不参与模型训练
+  blacklist: []
+
+train:
+  batch_size: 32
+  num_workers: 4
+
+test:
+  batch_size: 32
+  num_workers: 4
+
+logging:
+  use_logging: true
+  # note: 实验记录保存路径
+  ckpt_path: ckpts/202306/fpn_large_crop_l1metric_wce
+  use_tensorboard: true
+  run_path: runs/202306/fpn_large_crop_l1metric_wce
+  logging_dir: ckpts/202306/fpn_large_crop_l1metric_wce
+
+criterion:
+  # support criterion method: [cross_entropy_loss, focal_loss]
+  # TODO: contrastive loss
+  criterion_method: cross_entropy_loss
+  cross_entropy_loss:
+    # note: 随机采样使用加权CE
+    use_weight: true
+    weight: [ 1, 2 ]
+  focal_loss:
+    gamma: 2
+    alpha: 0.25
+  contrastive_loss:
+    margin: 2.0
+  ghm_loss:
+    bins: 30
+    alpha: 0.75
+
+optim:
+  last_epoch: -1
+  num_epochs: 200
+#  resume: ../lymph_node_detection/ckpts/papers/wch_iou_anchors.5_num_hard.8/103.pth
+#  ignore_list: [ 'preBlock.0', 'back2.0.conv1' ]
+# note: 3d
+  resume: pretrained/resnet3d18.pth
+# note: 2.5d resnet34
+  # resume: pretrained/resnet34.pth
+  ignore_list: [ 'conv1', 'fc' ]
+  optim_method: adam
+  sgd:
+    base_lr: 1e-3
+    momentum: 0.9
+    weight_decay: 5e-4
+    nesterov: false
+  adam:
+    base_lr: 1e-3
+    betas: [ 0.9, 0.999 ]
+    weight_decay: 5e-4
+    amsgrad: false
+  adamW:
+    base_lr: 1e-3
+    betas: [ 0.9, 0.999 ]
+    weight_decay: 5e-4
+    amsgrad: false
+  use_lr_decay: false
+  # support lr_decay method: [cosine, exponent, warmup]
+  lr_decay_method: warmup
+  cosine:
+    eta_min: 0
+    T_max: 100
+  exponent:
+    gamma: 0.99
+  warmup:
+    multiplier: 10
+    total_epoch: 10
+    after_scheduler: cosine
+
+network:
+  net_name: siamese_resnet3d
+  seed: 42
